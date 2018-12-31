@@ -297,8 +297,8 @@ class Service(CallActionMixin):
                     'argumentList/argument', namespaces=action_node.nsmap):
                 findtext = partial(arg_node.findtext, namespaces=arg_node.nsmap)
                 arg_name = findtext('name')
-                arg_statevar = self.statevars[findtext('relatedStateVariable')]
                 try:
+                    arg_statevar = self.statevars[findtext('relatedStateVariable')]
                     if findtext('direction').lower() == 'in':
                         argsdef_in.append((arg_name, arg_statevar))
                     else:
