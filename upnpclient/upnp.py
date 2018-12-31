@@ -298,10 +298,13 @@ class Service(CallActionMixin):
                 findtext = partial(arg_node.findtext, namespaces=arg_node.nsmap)
                 arg_name = findtext('name')
                 arg_statevar = self.statevars[findtext('relatedStateVariable')]
-                if findtext('direction').lower() == 'in':
-                    argsdef_in.append((arg_name, arg_statevar))
-                else:
-                    argsdef_out.append((arg_name, arg_statevar))
+                try:
+                    if findtext('direction').lower() == 'in':
+                        argsdef_in.append((arg_name, arg_statevar))
+                    else:
+                        argsdef_out.append((arg_name, arg_statevar))
+                except Exception:
+                    continue
             action = Action(self, action_url, self.service_type, name, argsdef_in, argsdef_out)
             self.action_map[name] = action
             self.actions.append(action)
